@@ -1,6 +1,5 @@
 import { StoreName } from "@gnarus-g/store-bought/interface";
 import { useEffect, useRef, useState } from "react";
-import { Events } from ".";
 import { AlertData, StockAlertsRequest, StockAlertsResponse } from "../../../interface";
 
 interface Handlers {
@@ -30,7 +29,7 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
             }
         }
 
-        window.ipc.send(Events.OPEN_STORE_DATA_STREAM);
+        window.ipc.openStoreDataStream();
 
     }, [])
 

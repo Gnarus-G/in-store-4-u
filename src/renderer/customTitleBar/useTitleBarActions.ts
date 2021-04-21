@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import { Events } from '../utils';
 
 export default function useTitleBarActions() {
 
     const [isWindowMaxed, setIsWindowMaxed] = useState<boolean>()
 
     function closeApp() {
-        window.ipc.send(Events.CLOSE_APP);
+        window.ipc.titleBarActions.closeApp()
     }
 
     function maximizeOrRestoreApp() {
-        window.ipc.send(Events.MAXIMIZE_OR_RESTORE);
+        window.ipc.titleBarActions.maximizeOrRestoreApp();
         setIsWindowMaxed(!isWindowMaxed)
     }
 
     function minimizeApp() {
-        window.ipc.send(Events.MINIMIZE);
+        window.ipc.titleBarActions.minimizeApp();
     }
 
     return {

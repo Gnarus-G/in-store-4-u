@@ -2,7 +2,7 @@ import { ipcMain, MessageChannelMain, MessagePortMain } from "electron";
 import { BrowserWindow } from "electron/main";
 import { StreamManager } from "./utils";
 import { StockAlertsRequest, StockAlertsResponse } from "../../interface";
-import { Events } from "../renderer/utils";
+import { Events } from "./utils";
 import { Writable, WritableOptions } from 'stream'
 import getStoreBought from "@gnarus-g/store-bought";
 

@@ -1,12 +1,16 @@
-import type { IpcRenderer } from "electron";
-
 declare global {
     interface Window {
-        ipc: IpcRenderer,
+        ipc: MainRendererApi
     }
 }
 
-declare module '*.module.css' {
-    const classes: { [key: string]: string };
-    export default classes;
+export interface MainRendererApi {
+    openStoreDataStream: () => void;
+    titleBarActions: {
+        closeApp(): void,
+        maximizeOrRestoreApp(): void,
+        minimizeApp(): void
+    }
 }
+
+export { }
