@@ -10,7 +10,8 @@
         "build": "electron-snowpack build",
         "make": "electron-builder",
         "pack": "electron-builder --dir",
-        "clean": "electron-snowpack clean"
+        "clean": "electron-snowpack clean",
+        "postversion": "git tag v$(node -pe 'JSON.parse(process.argv[1]).version' \"$(cat package.json)\")"
     },
     "author": "Gnarus-G",
     "license": "MIT",
