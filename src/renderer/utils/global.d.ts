@@ -9,7 +9,8 @@ export interface MainRendererApi {
     titleBarActions: {
         closeApp(): void,
         maximizeOrRestoreApp(): void,
-        minimizeApp(): void
+        minimizeApp(): void,
+        onMaximizeOrRestore(callback: (isMaximized: boolean) => void): void
     }
 }
 

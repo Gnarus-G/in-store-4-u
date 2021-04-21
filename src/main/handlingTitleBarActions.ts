@@ -13,4 +13,7 @@ export default function startHandlingTitleBarActions(window: BrowserWindow) {
     ipcMain.on(Events.MINIMIZE, () => {
         window.minimize()
     })
+
+    window.on("maximize", () => window.webContents.send(Events.WINDOW_MAXIMIZED))
+    window.on("unmaximize", () => window.webContents.send(Events.WINDOW_UNMAXIMIZED))
 }

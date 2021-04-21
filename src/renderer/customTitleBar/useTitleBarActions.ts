@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useTitleBarActions() {
 
     const [isWindowMaxed, setIsWindowMaxed] = useState<boolean>()
+
+    useEffect(() => {
+        window.ipc.titleBarActions.onMaximizeOrRestore(setIsWindowMaxed)
+    }, [])
 
     function closeApp() {
         window.ipc.titleBarActions.closeApp()
@@ -10,7 +14,6 @@ export default function useTitleBarActions() {
 
     function maximizeOrRestoreApp() {
         window.ipc.titleBarActions.maximizeOrRestoreApp();
-        setIsWindowMaxed(!isWindowMaxed)
     }
 
     function minimizeApp() {

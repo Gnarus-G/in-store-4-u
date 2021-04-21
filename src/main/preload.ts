@@ -9,9 +9,8 @@ ipcRenderer.on('main-world-port', async (event) => {
     window.postMessage('main-world-port', '*', event.ports)
 })
 
-// Expose protected methods that allow the renderer process to use
-// the ipcRenderer without exposing the entire object
-contextBridge.exposeInMainWorld("ipc", {
+
+const ipc: MainRendererApi = {
     openStoreDataStream: () => {
         ipcRenderer.send(Events.OPEN_STORE_DATA_STREAM);
     },
@@ -24,6 +23,14 @@ contextBridge.exposeInMainWorld("ipc", {
         },
         minimizeApp() {
             ipcRenderer.send(Events.MINIMIZE);
+        },
+        onMaximizeOrRestore: (callback) => {
+            ipcRenderer.on(Events.WINDOW_MAXIMIZED, () => callback(true))
+            ipcRenderer.on(Events.WINDOW_UNMAXIMIZED, () => callback(false))
         }
     }
-} as MainRendererApi);
+}
+
+// Expose protected methods that allow the renderer process to use
+// the ipcRenderer without exposing the entire object
+contextBridge.exposeInMainWorld("ipc", ipc);
