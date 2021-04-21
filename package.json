@@ -1,6 +1,6 @@
 {
     "name": "in-store-4-u",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Desktop application for checkout product stock on various store web fronts. Powered by Electron.Js",
     "build": {
         "extends": "electron-snowpack/config/electron-builder.js"
@@ -15,7 +15,12 @@
     },
     "author": "Gnarus-G",
     "license": "MIT",
-    "keywords": ["stock", "alerts", "checking-stock", "bot"],
+    "keywords": [
+        "stock",
+        "alerts",
+        "checking-stock",
+        "bot"
+    ],
     "dependencies": {
         "@gnarus-g/store-bought": "^1.0.9",
         "@material-ui/core": "^4.11.3",
