@@ -1,8 +1,9 @@
 import type { AlertData } from "../../../interface";
 import { useEffect, useState } from "react";
 import useStoreStream from "../utils/useStoreStream";
+import { StoreName } from "@gnarus-g/store-bought/interface";
 
-export default function useStoreAlerts(storeName: "newegg") {
+export default function useStoreAlerts(storeName: StoreName) {
 
     const [listening, setListening] = useState<boolean>(false)
     const [disabled, setDisabled] = useState<boolean>(false)

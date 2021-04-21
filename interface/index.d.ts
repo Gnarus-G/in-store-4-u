@@ -1,3 +1,5 @@
+import { StoreName } from "@gnarus-g/store-bought/interface";
+
 export interface StoreResponseDto {
     productTitle: string
     itemNumber: string
@@ -10,7 +12,7 @@ type AlertData = { timeStamp: Date, data: StoreResponseDto };
 export interface StockAlertsRequest {
     type: "start" | "stop"
     alertStreamId?: string
-    storeName?: string,
+    storeName?: StoreName,
     itemNumber?: string
 }
 

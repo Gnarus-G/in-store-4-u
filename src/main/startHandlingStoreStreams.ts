@@ -4,7 +4,7 @@ import { StreamManager } from "./utils";
 import { StockAlertsRequest, StockAlertsResponse } from "../../interface";
 import { Events } from "../renderer/utils";
 import { Writable, WritableOptions } from 'stream'
-import openStore from "@gnarus-g/store-bought";
+import getStoreBought from "@gnarus-g/store-bought";
 
 class Storewritablestream extends Writable {
 
@@ -45,7 +45,7 @@ export default function startHandlingStoreStreams(mainWindow: BrowserWindow) {
         switch (request.type) {
             case "start":
                 const { storeName, itemNumber } = request;
-                await (await openStore)(storeName as any, itemNumber!, stream => {
+                await (await getStoreBought())(storeName, itemNumber, stream => {
                     const id = streamManager.addOne(ports[0], stream);
                     stream.on("end", () => {
                         ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)

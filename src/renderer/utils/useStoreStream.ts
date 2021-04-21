@@ -1,3 +1,4 @@
+import { StoreName } from "@gnarus-g/store-bought/interface";
 import { useEffect, useRef, useState } from "react";
 import { Events } from ".";
 import { AlertData, StockAlertsRequest, StockAlertsResponse } from "../../../interface";
@@ -42,7 +43,7 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
         onDone();
     }
 
-    function startAlerts(storeName: string, itemNumber: string) {
+    function startAlerts(storeName: StoreName, itemNumber: string) {
         if (!portRef.current) return
         setId("");
         setReadable(true)
