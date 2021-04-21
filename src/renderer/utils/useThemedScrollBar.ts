@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
         },
         '&::-webkit-scrollbar-thumb': {
             borderRadius: theme.shape.borderRadius,
-            // boxShadow: 'inset 0 0 6px rgba(0, 0, 0, .3)',
             boxShadow: theme.shadows[3],
             backgroundColor: theme.palette.divider
         }

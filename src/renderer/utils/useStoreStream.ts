@@ -17,10 +17,7 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
     useEffect(() => {
 
         window.onmessage = (event: MessageEvent) => {
-            console.log("Recieving port from main process...");
 
-            // event.source === window means the message is coming from the preload
-            // script, as opposed to from an <iframe> or other source.
             if (event.source === window && event.data === 'main-world-port') {
                 const [port] = event.ports;
 
