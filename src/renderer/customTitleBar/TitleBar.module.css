@@ -1,4 +1,4 @@
-.bar {
+.titleBar {
     display: flex;
     padding-left: 1rem;
     -webkit-app-region: drag;

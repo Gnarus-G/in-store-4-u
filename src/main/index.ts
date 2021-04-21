@@ -3,7 +3,8 @@ import { getAssetURL } from "electron-snowpack"
 import { app, BrowserWindow } from 'electron';
 
 import { join } from 'path';
-import startHandlingStoreStreams from "./startHandlingStoreStreams";
+import startHandlingStoreStreams from "./handlingStoreStreams";
+import startHandlingTitleBarActions from "./handlingTitleBarActions";
 
 let mainWindow: BrowserWindow | null;
 
@@ -40,6 +41,7 @@ function createWindow() {
 
 app.on('ready', () => {
     createWindow()
+    startHandlingTitleBarActions(mainWindow);
     startHandlingStoreStreams(mainWindow);
 });
 

@@ -8,8 +8,5 @@ ipcRenderer.on('main-world-port', async (event) => {
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
-contextBridge.exposeInMainWorld(
-    "fromMain", {
-    ipcRenderer
-});
+contextBridge.exposeInMainWorld("ipc", ipcRenderer);
 

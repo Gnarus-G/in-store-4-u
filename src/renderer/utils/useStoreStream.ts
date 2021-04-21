@@ -33,7 +33,7 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
             }
         }
 
-        window.fromMain.ipcRenderer.send(Events.OPEN_STORE_DATA_STREAM);
+        window.ipc.send(Events.OPEN_STORE_DATA_STREAM);
 
     }, [])
 

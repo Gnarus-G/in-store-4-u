@@ -1,38 +1,27 @@
-import { Box, Button, ButtonGroup, makeStyles, Typography } from '@material-ui/core'
-import React, { useMemo } from 'react'
-import styles from "./TitleBar.module.css";
+import { Box, Button, ButtonGroup, Typography } from '@material-ui/core'
+import React from 'react'
+import css from "./TitleBar.module.css";
+import useTitleBarActions from './useTitleBarActions';
+import useTitleBarStyles from './useTitleBarStyles';
 
 export default function TitleBar() {
-    const buttons = useMemo(() => makeStyles(theme => ({
-        closeBtn: {
-            '&:hover': {
-                backgroundColor: theme.palette.error.main,
-            }
-        },
-        shape: {
-            padding: "0 1rem",
-            borderRadius: 0
-        },
-        left: {
-            marginLeft: "auto"
-        }
-    }))(), [])
-
+    const { btnShape, exitBtn, left } = useTitleBarStyles();
+    const { closeApp, maximizeOrRestoreApp, minimizeApp } = useTitleBarActions();
     return (
-        <Box className={styles.bar} bgcolor="background.paper" color="text.primary">
+        <Box className={css.titleBar} bgcolor="background.paper" color="text.primary">
             <Box display="flex" alignItems="center" paddingY={.5} clone>
                 <Typography align="center" variant="h6">
                     {document.title}
                 </Typography>
             </Box>
-            <ButtonGroup className={buttons.left} size="small" variant="text">
-                <Button className={buttons.shape}>
+            <ButtonGroup className={left} size="small" variant="text">
+                <Button className={btnShape} onClick={minimizeApp}>
                     <Typography variant="h5" >&minus;</Typography>
                 </Button>
-                <Button className={buttons.shape}>
+                <Button className={btnShape} onClick={maximizeOrRestoreApp}>
                     <Typography variant="h5" >&#x25FB;</Typography>
                 </Button>
-                <Button className={`${buttons.closeBtn} ${buttons.shape}`}>
+                <Button className={`${exitBtn} ${btnShape}`} onClick={closeApp}>
                     <Typography variant="h5" >&times;</Typography>
                 </Button>
             </ButtonGroup>
