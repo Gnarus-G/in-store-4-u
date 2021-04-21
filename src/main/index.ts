@@ -12,6 +12,7 @@ function createWindow() {
         backgroundColor: '#2e2c29',
         minWidth: 440,
         minHeight: 500,
+        frame: false,
         webPreferences: {
             nodeIntegration: false,
             enableRemoteModule: false,

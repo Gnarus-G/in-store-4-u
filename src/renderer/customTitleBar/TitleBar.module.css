@@ -1,0 +1,13 @@
+.bar {
+    display: flex;
+    position: static;
+    align-items: center;
+    padding-left: 1rem;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+button {
+    -webkit-app-region: no-drag;
+}
