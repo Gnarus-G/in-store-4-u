@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Typography } from '@material-ui/core'
 import React from 'react'
-import css from "./TitleBar.module.css";
+import "./index.css";
 import useTitleBarActions from './useTitleBarActions';
 import useTitleBarStyles from './useTitleBarStyles';
 
@@ -8,7 +8,7 @@ export default function TitleBar() {
     const { btnShape, exitBtn, left } = useTitleBarStyles();
     const { isWindowMaxed, closeApp, maximizeOrRestoreApp, minimizeApp } = useTitleBarActions();
     return (
-        <Box className={css.titleBar} bgcolor="background.paper" color="text.primary">
+        <Box className="titleBar" bgcolor="background.paper" color="text.primary">
             <Box display="flex" alignItems="center" paddingY={.5} clone>
                 <Typography align="center" variant="h6">
                     {document.title}

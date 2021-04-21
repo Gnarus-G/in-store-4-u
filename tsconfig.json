@@ -25,11 +25,6 @@
         //     "forceConsistentCasingInFileNames": true,
         //     "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
-        //     "importsNotUsedAsValues": "error",
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules"
-            }
-        ]
+        //     "importsNotUsedAsValues": "error" 
     }
 }
