@@ -44,7 +44,7 @@ interface StoreResponseViewProps {
 function StoreResponseView({ timeStamp, productTitle, inStock }: StoreResponseViewProps) {
     return (
         <Box color={inStock ? "success.light" : "error.light"} display="flex" justifyItems="stretch">
-            <Typography variant="overline" color="textSecondary" style={{ minWidth: "85px" }}>[{timeStamp.toLocaleTimeString()}]:</Typography>
+            <Typography variant="overline" color="textSecondary" style={{ minWidth: "96px" }}>[{timeStamp.toLocaleTimeString()}]:</Typography>
             <Typography variant="overline" noWrap color="inherit" style={{ flexGrow: 1 }}>{productTitle}</Typography>
             <Typography variant="body1" color={inStock ? 'inherit' : 'error'} style={{ minWidth: 78 }}>{inStock ? "IN STOCK" : "NO STOCK"}</Typography>
         </Box>
