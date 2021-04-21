@@ -1,12 +1,16 @@
 html, #root, body {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 body::-webkit-scrollbar {
-    width: 0;
+    display: none;
 }
 
 body {
+    overflow-x: hidden;
+    overflow-y: auto;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;

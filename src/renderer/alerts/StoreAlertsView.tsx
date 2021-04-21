@@ -12,7 +12,7 @@ interface StoreAlertsProps {
 
 export default function StoreAlertsView({ name, disabled, active, toggleActive: setActive, responses, setItemNumber }: StoreAlertsProps) {
     return (
-        <Paper>
+        <Paper component="article">
             <Box padding="30px">
                 <Typography variant="h5" align="center">{name} Alerts</Typography>
                 <br />
