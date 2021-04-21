@@ -1,6 +1,7 @@
 .bar {
     display: flex;
-    position: static;
+    position: fixed;
+    width: 100%;
     align-items: center;
     padding-left: 1rem;
     -webkit-app-region: drag;
