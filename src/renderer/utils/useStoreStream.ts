@@ -20,10 +20,7 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
             if (event.source === window && event.data === 'main-world-port') {
                 const [port] = event.ports;
 
-                port.onmessage = e => {
-                    console.log(`e.data`, e.data);
-                    handleResponseFromMain(e.data);
-                }
+                port.onmessage = e => handleResponseFromMain(e.data);
 
                 portRef.current = port;
             }
