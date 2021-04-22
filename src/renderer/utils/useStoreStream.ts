@@ -17,7 +17,6 @@ export default function useStoreStream(storeName: StoreName, { onDone, onOngoing
     useEffect(() => {
 
         const listener = (event: MessageEvent) => {
-            // console.log("Receiving port for", storeName);
             if (event.source === window && event.data === streamEventFor(storeName)) {
                 const [port] = event.ports;
                 port.onmessage = e => handleResponseFromMain(e.data);
@@ -46,7 +45,6 @@ export default function useStoreStream(storeName: StoreName, { onDone, onOngoing
         setId("");
         setReadable(true)
         const req: StockAlertsRequest = { type: "start", storeName, itemNumber }
-        console.log(`req`, req)
         portRef.current?.postMessage(req);
     }
 

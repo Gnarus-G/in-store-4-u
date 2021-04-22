@@ -6,6 +6,7 @@ import { Events } from "./utils";
 import { Writable, WritableOptions } from 'stream'
 import getStoreBought from "@gnarus-g/store-bought";
 import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
+import notifyWhenStockFound from "./notifyWhenStockFound";
 
 class Storewritablestream extends Writable {
 
@@ -46,7 +47,6 @@ function listenFor(storeName: StoreName, mainWindow: BrowserWindow) {
 }
 
 async function handleRequestFromRenderer(request: StockAlertsRequest, ports: MessagePortMain[]) {
-    console.log(`request`, request)
     switch (request.type) {
         case "start":
             const { storeName, itemNumber } = request;
@@ -55,6 +55,7 @@ async function handleRequestFromRenderer(request: StockAlertsRequest, ports: Mes
                 stream.on("end", () => {
                     ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)
                 })
+                stream.on("stockfound", arg => notifyWhenStockFound(storeName, arg))
                 stream.pipe(new Storewritablestream(ports[1], id))
             });
             break;
