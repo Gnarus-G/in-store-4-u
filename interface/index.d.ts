@@ -1,11 +1,4 @@
-import { StoreName } from "@gnarus-g/store-bought/interface";
-
-export interface StoreResponseDto {
-    productTitle: string
-    itemNumber: string
-    inStock: boolean
-    cartLink: string
-}
+import { StoreName, StoreResponseDto } from "@gnarus-g/store-bought/interface";
 
 type AlertData = { timeStamp: Date, data: StoreResponseDto };
 

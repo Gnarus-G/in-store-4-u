@@ -1,5 +1,6 @@
-import { Box, Button, ButtonGroup, Paper, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Paper, TextField, Typography } from '@material-ui/core'
 import React from 'react'
+import { StoreResponseView, StoreResponseViewProps } from './StoreResponseView'
 
 interface StoreAlertsProps {
     name: string
@@ -14,14 +15,14 @@ export default function StoreAlertsView({ name, disabled, active, toggleActive: 
     return (
         <Paper component="article">
             <Box padding="30px">
-                <Typography variant="h5" align="center">{name} Alerts</Typography>
+                <Typography style={{ textTransform: "uppercase" }} variant="h5" align="center">{name} Alerts</Typography>
                 <br />
                 <Box display="flex">
                     <TextField style={{ flexGrow: 1 }}
                         InputProps={{ style: { borderRadius: "4px 0 0 4px" } }}
                         label="item#"
                         placeholder="e.g 9SIAPHAEAA2818"
-                        fullWidth 
+                        fullWidth
                         variant="filled"
                         onChange={e => setItemNumber(e.currentTarget.value)} />
                     <Button variant="contained" style={{ borderRadius: "0 4px 4px 0" }} disabled={disabled} color={active ? "secondary" : "primary"} onClick={setActive}>{active ? "Stop" : "Start"}</Button>
@@ -32,21 +33,5 @@ export default function StoreAlertsView({ name, disabled, active, toggleActive: 
                 </Box>
             </Box>
         </Paper>
-    )
-}
-
-interface StoreResponseViewProps {
-    timeStamp: Date
-    productTitle: string
-    inStock: boolean
-}
-
-function StoreResponseView({ timeStamp, productTitle, inStock }: StoreResponseViewProps) {
-    return (
-        <Box color={inStock ? "success.light" : "error.light"} display="flex" justifyItems="stretch">
-            <Typography variant="overline" color="textSecondary" style={{ minWidth: "96px" }}>[{timeStamp.toLocaleTimeString()}]:</Typography>
-            <Typography variant="overline" noWrap color="inherit" style={{ flexGrow: 1 }}>{productTitle}</Typography>
-            <Typography variant="body1" color={inStock ? 'inherit' : 'error'} style={{ minWidth: 78 }}>{inStock ? "IN STOCK" : "NO STOCK"}</Typography>
-        </Box>
     )
 }
