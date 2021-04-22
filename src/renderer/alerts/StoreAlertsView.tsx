@@ -21,7 +21,7 @@ export default function StoreAlertsView({ name, disabled, active, toggleActive: 
                     <TextField style={{ flexGrow: 1 }}
                         InputProps={{ style: { borderRadius: "4px 0 0 4px" } }}
                         label="item#"
-                        placeholder="e.g 9SIAPHAEAA2818"
+                        placeholder="or ASIN, or SKU, etc..."
                         fullWidth
                         variant="filled"
                         onChange={e => setItemNumber(e.currentTarget.value)} />
