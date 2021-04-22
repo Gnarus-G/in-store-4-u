@@ -33,10 +33,7 @@ function listenFor(storeName: StoreName, mainWindow: BrowserWindow) {
         const { port1, port2 } = new MessageChannelMain()
 
         // We can also receive messages from the main world of the renderer.
-        port2.on("message", async (event: any) => {
-            console.log('from renderer main world:', event.data)
-            handleRequestFromRenderer(event.data, [port1, port2]);
-        })
+        port2.on("message", async (event: any) => handleRequestFromRenderer(event.data, [port1, port2]))
 
         port2.start()
 
