@@ -10,7 +10,7 @@ export default function useStoreAlerts(storeName: StoreName) {
     const [itemNumber, setItemNumber] = useState<string>("");
     const [alerts, setAlerts] = useState<AlertData[]>([])
 
-    const { id, readable, startAlerts, stopAlerts } = useStoreStream({
+    const { id, readable, startAlerts, stopAlerts } = useStoreStream(storeName, {
         onDone: reset,
         onOngoing: ({ data, timeStamp }) => {
             setAlerts(arr => {
@@ -29,7 +29,7 @@ export default function useStoreAlerts(storeName: StoreName) {
 
         if (listening) {
             setAlerts([]);
-            startAlerts(storeName, itemNumber)
+            startAlerts(itemNumber)
         }
 
         !listening && stopAlerts();

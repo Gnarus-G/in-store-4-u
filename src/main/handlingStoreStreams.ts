@@ -1,10 +1,11 @@
 import { ipcMain, MessageChannelMain, MessagePortMain } from "electron";
 import { BrowserWindow } from "electron/main";
-import { StreamManager } from "./utils";
+import { streamEventFor, StreamManager } from "./utils";
 import { StockAlertsRequest, StockAlertsResponse } from "../../interface";
 import { Events } from "./utils";
 import { Writable, WritableOptions } from 'stream'
 import getStoreBought from "@gnarus-g/store-bought";
+import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
 
 class Storewritablestream extends Writable {
 
@@ -22,7 +23,10 @@ class Storewritablestream extends Writable {
 const streamManager = new StreamManager();
 
 export default function startHandlingStoreStreams(mainWindow: BrowserWindow) {
+    ALL_STORES.forEach(name => listenFor(name, mainWindow))
+}
 
+function listenFor(storeName: StoreName, mainWindow: BrowserWindow) {
     ipcMain.on(Events.OPEN_STORE_DATA_STREAM, _event => {
 
         const { port1, port2 } = new MessageChannelMain()
@@ -37,25 +41,25 @@ export default function startHandlingStoreStreams(mainWindow: BrowserWindow) {
 
         // The preload script will receive this IPC message and transfer the port
         // over to the main world.
-        mainWindow!.webContents.postMessage('main-world-port', null, [port1])
+        mainWindow!.webContents.postMessage(streamEventFor(storeName), null, [port1])
     })
+}
 
-    async function handleRequestFromRenderer(request: StockAlertsRequest, ports: MessagePortMain[]) {
-        console.log(`request`, request)
-        switch (request.type) {
-            case "start":
-                const { storeName, itemNumber } = request;
-                await (await getStoreBought())(storeName, itemNumber, stream => {
-                    const id = streamManager.addOne(ports[0], stream);
-                    stream.on("end", () => {
-                        ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)
-                    })
-                    stream.pipe(new Storewritablestream(ports[1], id))
-                });
-                break;
-            case "stop":
-                streamManager.closeOne(request.alertStreamId!);
-                break;
-        }
+async function handleRequestFromRenderer(request: StockAlertsRequest, ports: MessagePortMain[]) {
+    console.log(`request`, request)
+    switch (request.type) {
+        case "start":
+            const { storeName, itemNumber } = request;
+            await (await getStoreBought())(storeName, itemNumber, stream => {
+                const id = streamManager.addOne(ports[0], stream);
+                stream.on("end", () => {
+                    ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)
+                })
+                stream.pipe(new Storewritablestream(ports[1], id))
+            });
+            break;
+        case "stop":
+            streamManager.closeOne(request.alertStreamId!);
+            break;
     }
 }

@@ -1,14 +1,17 @@
-import { Events } from "./utils";
+import { Events, streamEventFor } from "./utils";
 import { MainRendererApi } from "../renderer/utils/global";
+import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
 
 const { contextBridge, ipcRenderer } = require("electron");
 
-ipcRenderer.on('main-world-port', async (event) => {
-    // We use regular window.postMessage to transfer the port from the isolated
-    // world to the main world.
-    window.postMessage('main-world-port', '*', event.ports)
-})
+function listenFor(storeName: StoreName) {
+    const message = streamEventFor(storeName);
+    ipcRenderer.on(message, async (event) => {
+        window.postMessage(message, '*', event.ports)
+    })
+}
 
+ALL_STORES.forEach(listenFor)
 
 const ipc: MainRendererApi = {
     openStoreDataStream: () => {

@@ -1,5 +1,6 @@
 import { StoreName } from "@gnarus-g/store-bought/interface";
 import { useEffect, useRef, useState } from "react";
+import { streamEventFor } from ".";
 import { AlertData, StockAlertsRequest, StockAlertsResponse } from "../../../interface";
 
 interface Handlers {
@@ -7,7 +8,7 @@ interface Handlers {
     onOngoing(alertData: AlertData): void
 }
 
-export default function useStoreStream({ onDone, onOngoing }: Handlers) {
+export default function useStoreStream(storeName: StoreName, { onDone, onOngoing }: Handlers) {
     const [readable, setReadable] = useState(false)
     const [id, setId] = useState<string>("");
 
@@ -15,18 +16,22 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
 
     useEffect(() => {
 
-        window.onmessage = (event: MessageEvent) => {
-
-            if (event.source === window && event.data === 'main-world-port') {
+        const listener = (event: MessageEvent) => {
+            // console.log("Receiving port for", storeName);
+            if (event.source === window && event.data === streamEventFor(storeName)) {
                 const [port] = event.ports;
-
                 port.onmessage = e => handleResponseFromMain(e.data);
-
                 portRef.current = port;
             }
-        }
+        };
+
+        window.addEventListener("message", listener)
 
         window.ipc.openStoreDataStream();
+
+        return () => {
+            window.removeEventListener("message", listener);
+        }
 
     }, [])
 
@@ -36,11 +41,12 @@ export default function useStoreStream({ onDone, onOngoing }: Handlers) {
         onDone();
     }
 
-    function startAlerts(storeName: StoreName, itemNumber: string) {
+    function startAlerts(itemNumber: string) {
         if (!portRef.current) return
         setId("");
         setReadable(true)
         const req: StockAlertsRequest = { type: "start", storeName, itemNumber }
+        console.log(`req`, req)
         portRef.current?.postMessage(req);
     }
 
