@@ -9,6 +9,9 @@ export default function TitleBar() {
     const { isWindowMaxed, closeApp, maximizeOrRestoreApp, minimizeApp } = useTitleBarActions();
     return (
         <Box className="titleBar" bgcolor="background.paper" color="text.primary">
+            <Box paddingX={.5} display="flex" alignItems="center">
+                <img src="/faveicon.png" alt="logo" width="32" height="32" />
+            </Box>
             <Box display="flex" alignItems="center" paddingY={.5} clone>
                 <Typography align="center" variant="h6">
                     {document.title}
