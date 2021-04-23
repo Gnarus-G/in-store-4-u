@@ -3,7 +3,8 @@
     "version": "1.0.6",
     "description": "Desktop application for checkout product stock on various store web fronts. Powered by Electron.Js",
     "build": {
-        "extends": "electron-snowpack/config/electron-builder.js"
+        "extends": "electron-snowpack/config/electron-builder.js",
+        "productName": "In Store 4 U"
     },
     "scripts": {
         "start": "electron-snowpack dev",
