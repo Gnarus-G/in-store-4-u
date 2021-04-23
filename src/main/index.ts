@@ -58,5 +58,3 @@ app.on('activate', () => {
         createWindow();
     }
 });
-
-app.setAppUserModelId("In Store 4 U")

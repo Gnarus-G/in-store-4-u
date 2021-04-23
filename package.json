@@ -4,7 +4,11 @@
     "description": "Desktop application for checkout product stock on various store web fronts. Powered by Electron.Js",
     "build": {
         "extends": "electron-snowpack/config/electron-builder.js",
-        "productName": "In Store 4 U"
+        "productName": "In Store 4 U",
+        "appId": "com.gnaritas.in-store-4-u",
+        "directories": {
+            "buildResources": "public"
+        }
     },
     "scripts": {
         "start": "electron-snowpack dev",
