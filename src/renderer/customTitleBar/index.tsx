@@ -10,7 +10,7 @@ export default function TitleBar() {
     return (
         <Box className="titleBar" bgcolor="background.paper" color="text.primary">
             <Box padding={.5} paddingLeft={.5} display="flex" alignItems="center">
-                <img src="/faveicon.png" alt="logo" width="32" height="32" />
+                <img src="/faveicon.png" alt={document.title} width="32" height="32" />
             </Box>
             <ButtonGroup className={left} size="small" variant="text">
                 <Button title="Minimize" className={btnShape} onClick={minimizeApp}>
