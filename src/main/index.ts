@@ -19,8 +19,7 @@ function createWindow() {
             contextIsolation: true,
             devTools: process.env.MODE === 'development',
             preload: join(__dirname, "preload.js")
-        },
-        icon: join(__dirname, "faveicon.png")
+        }
     });
 
     if (process.env.MODE !== 'production') {
