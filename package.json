@@ -4,6 +4,8 @@
     "description": "Desktop application for checkout product stock on various store web fronts. Powered by Electron.Js",
     "build": {
         "extends": "electron-snowpack/config/electron-builder.js",
+        "productName": "In Store 4 U",
+        "appId": "app.InS",
         "win": {
             "icon": "public/faveicon.png"
         },
