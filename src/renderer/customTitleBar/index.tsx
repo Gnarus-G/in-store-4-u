@@ -14,15 +14,15 @@ export default function TitleBar() {
             </Box>
             <ButtonGroup className={left} size="small" variant="text">
                 <Button title="Minimize" className={btnShape} onClick={minimizeApp}>
-                    <Typography variant="h5" >&minus;</Typography>
+                    <Typography variant="h5" >−</Typography>
                 </Button>
                 <Button title={isWindowMaxed ? "Restore" : "Maximize"} className={btnShape} onClick={maximizeOrRestoreApp}>
                     {!isWindowMaxed ?
-                        <Typography variant="h5" >&#x25FB;</Typography>
-                        : <Typography variant="h5" >&#x2750;</Typography>}
+                        <Typography variant="h5" >◻</Typography>
+                        : <Typography variant="h5" >❐</Typography>}
                 </Button>
                 <Button title="Close" className={`${exitBtn} ${btnShape}`} onClick={closeApp}>
-                    <Typography variant="h5" >&times;</Typography>
+                    <Typography variant="h5" >×</Typography>
                 </Button>
             </ButtonGroup>
         </Box>
