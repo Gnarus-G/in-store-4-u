@@ -56,7 +56,6 @@ async function handleRequestFromRenderer(request: StockAlertsRequest, ports: Mes
                     notifyWhenStockFound(storeName, arg)
                     mainWindow.webContents.send(Events.STOCK_FOUND + storeName, arg)
                     mainWindow.show()
-                    localStorage.getItem("sdf")
                 })
                 stream.pipe(new Storewritablestream(ports[1], id))
             });

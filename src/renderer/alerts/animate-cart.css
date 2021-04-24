@@ -1,0 +1,13 @@
+.cart-btn {
+    animation: shake .1s ease-in-out 100 alternate;
+}
+
+@keyframes shake {
+    from {
+        transform: rotate(15deg);
+    }
+    to {
+        transform: rotate(-15deg);
+        transform-origin: center;
+    }
+}

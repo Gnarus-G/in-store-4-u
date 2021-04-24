@@ -1,8 +1,10 @@
 import { StoreName } from '@gnarus-g/store-bought/interface';
-import { Box, Button, IconButton, Paper, TextField, Typography } from '@material-ui/core'
-import React from 'react'
+import { Badge, Box, Button, Paper, TextField, Typography } from '@material-ui/core'
+import React, { useEffect } from 'react'
 import useStockFoundHandler from '../handleFoundStock/useStockFoundHandler'
 import { StoreResponseView, StoreResponseViewProps } from './StoreResponseView'
+import "./animate-cart.css"
+import CartIconButton from '../handleFoundStock/CartIconButton';
 
 interface StoreAlertsProps {
     name: StoreName
@@ -14,10 +16,15 @@ interface StoreAlertsProps {
 }
 
 export default function StoreAlertsView({ name, disabled, active, toggleActive: setActive, responses, setItemNumber }: StoreAlertsProps) {
-    const { found, openCartLink } = useStockFoundHandler(name);
+    const { found, openCartLink, reset } = useStockFoundHandler(name);
+
+    useEffect(() => {
+        if (disabled) reset()
+    }, [disabled])
+
     return (
         <Paper component="article">
-            <IconButton title="Add to cart" style={{ float: "right" }} size="small" color="default" disabled={!found} onClick={openCartLink}>🛒</IconButton>
+            <CartIconButton style={{ float: 'right' }} disabled={!found} onClick={openCartLink} />
             <Box padding="30px">
                 <Typography style={{ textTransform: "uppercase" }} variant="h5" align="center">{name} Alerts</Typography>
                 <br />
