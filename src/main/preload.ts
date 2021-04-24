@@ -1,4 +1,4 @@
-import { Events, streamEventFor } from "./utils";
+import { Events, stockFoundEventFor, streamEventFor } from "./utils";
 import { MainRendererApi } from "../renderer/utils/global";
 import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
 import open from "open";
@@ -19,7 +19,7 @@ const ipc: MainRendererApi = {
         ipcRenderer.send(Events.OPEN_STORE_DATA_STREAM);
     },
     whenStockFound: (storename, func) => {
-        ipcRenderer.on(Events.STOCK_FOUND + storename, (_, arg) => func(arg as any));
+        ipcRenderer.on(stockFoundEventFor(storename), (_, arg) => func(arg as any));
     },
     open,
     titleBarActions: {

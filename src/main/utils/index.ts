@@ -1,4 +1,5 @@
-import StoreStream from "@gnarus-g/store-bought/store/StoreStream";
+import { StoreName } from "@gnarus-g/store-bought/interface";
+import StoreStream, { STORESTREAM_EVENTS } from "@gnarus-g/store-bought/store/StoreStream";
 import { MessagePortMain } from "electron/main";
 import { streamEventFor } from "../../renderer/utils";
 
@@ -6,8 +7,11 @@ export {
     streamEventFor
 }
 
+export function stockFoundEventFor(storeName: StoreName){
+    return STORESTREAM_EVENTS.STOCKFOUND + `-for-${storeName}`;
+}
+
 export const enum Events {
-    STOCK_FOUND = "stockfound-",
     OPEN_STORE_DATA_STREAM = "store-data-stream",
     CLOSE_APP = "close-app",
     MINIMIZE = "minimize-app",

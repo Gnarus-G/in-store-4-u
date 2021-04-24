@@ -1,12 +1,13 @@
 import { ipcMain, MessageChannelMain, MessagePortMain } from "electron";
 import { BrowserWindow } from "electron/main";
-import { streamEventFor, StreamManager } from "./utils";
+import { stockFoundEventFor, streamEventFor, StreamManager } from "./utils";
 import { StockAlertsRequest, StockAlertsResponse } from "../../interface";
 import { Events } from "./utils";
 import { Writable, WritableOptions } from 'stream'
 import getStoreBought from "@gnarus-g/store-bought";
 import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
 import notifyWhenStockFound from "./notifyWhenStockFound";
+import { STORESTREAM_EVENTS } from "@gnarus-g/store-bought/store/StoreStream";
 
 class Storewritablestream extends Writable {
 
@@ -52,9 +53,9 @@ async function handleRequestFromRenderer(request: StockAlertsRequest, ports: Mes
                 stream.on("end", () => {
                     ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)
                 })
-                stream.on("stockfound", arg => {
+                stream.on(STORESTREAM_EVENTS.STOCKFOUND, arg => {
                     notifyWhenStockFound(storeName, arg)
-                    mainWindow.webContents.send(Events.STOCK_FOUND + storeName, arg)
+                    mainWindow.webContents.send(stockFoundEventFor(storeName), arg)
                     mainWindow.show()
                 })
                 stream.pipe(new Storewritablestream(ports[1], id))
