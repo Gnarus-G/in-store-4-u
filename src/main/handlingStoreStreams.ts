@@ -33,7 +33,7 @@ function listenFor(storeName: StoreName, mainWindow: BrowserWindow) {
         const { port1, port2 } = new MessageChannelMain()
 
         // We can also receive messages from the main world of the renderer.
-        port2.on("message", async (event: any) => handleRequestFromRenderer(event.data, [port1, port2]))
+        port2.on("message", async (event: any) => handleRequestFromRenderer(event.data, [port1, port2], mainWindow))
 
         port2.start()
 
@@ -43,7 +43,7 @@ function listenFor(storeName: StoreName, mainWindow: BrowserWindow) {
     })
 }
 
-async function handleRequestFromRenderer(request: StockAlertsRequest, ports: MessagePortMain[]) {
+async function handleRequestFromRenderer(request: StockAlertsRequest, ports: MessagePortMain[], mainWindow: BrowserWindow) {
     switch (request.type) {
         case "start":
             const { storeName, itemNumber } = request;
@@ -52,7 +52,11 @@ async function handleRequestFromRenderer(request: StockAlertsRequest, ports: Mes
                 stream.on("end", () => {
                     ports[1].postMessage({ type: "done", alertStreamId: id } as StockAlertsResponse)
                 })
-                stream.on("stockfound", arg => notifyWhenStockFound(storeName, arg))
+                stream.on("stockfound", arg => {
+                    notifyWhenStockFound(storeName, arg)
+                    mainWindow.webContents.send(Events.STOCK_FOUND + storeName, arg)
+                    localStorage.getItem("sdf")
+                })
                 stream.pipe(new Storewritablestream(ports[1], id))
             });
             break;

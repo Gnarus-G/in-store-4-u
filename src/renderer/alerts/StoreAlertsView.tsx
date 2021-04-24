@@ -1,9 +1,11 @@
-import { Box, Button, Paper, TextField, Typography } from '@material-ui/core'
+import { StoreName } from '@gnarus-g/store-bought/interface';
+import { Box, Button, IconButton, Paper, TextField, Typography } from '@material-ui/core'
 import React from 'react'
+import useStockFoundHandler from '../handleFoundStock/useStockFoundHandler'
 import { StoreResponseView, StoreResponseViewProps } from './StoreResponseView'
 
 interface StoreAlertsProps {
-    name: string
+    name: StoreName
     active: boolean
     disabled: boolean
     toggleActive: () => void
@@ -12,8 +14,10 @@ interface StoreAlertsProps {
 }
 
 export default function StoreAlertsView({ name, disabled, active, toggleActive: setActive, responses, setItemNumber }: StoreAlertsProps) {
+    const { found, openCartLink } = useStockFoundHandler(name);
     return (
         <Paper component="article">
+            <IconButton title="Add to cart" style={{ float: "right" }} size="small" color="default" disabled={!found} onClick={openCartLink}>🛒</IconButton>
             <Box padding="30px">
                 <Typography style={{ textTransform: "uppercase" }} variant="h5" align="center">{name} Alerts</Typography>
                 <br />

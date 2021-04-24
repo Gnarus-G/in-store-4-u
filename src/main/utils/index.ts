@@ -7,6 +7,7 @@ export {
 }
 
 export const enum Events {
+    STOCK_FOUND = "stockfound-",
     OPEN_STORE_DATA_STREAM = "store-data-stream",
     CLOSE_APP = "close-app",
     MINIMIZE = "minimize-app",

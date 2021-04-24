@@ -1,6 +1,7 @@
 import { Events, streamEventFor } from "./utils";
 import { MainRendererApi } from "../renderer/utils/global";
 import { ALL_STORES, StoreName } from "@gnarus-g/store-bought/interface";
+import open from "open";
 
 const { contextBridge, ipcRenderer } = require("electron");
 
@@ -17,6 +18,10 @@ const ipc: MainRendererApi = {
     openStoreDataStream: () => {
         ipcRenderer.send(Events.OPEN_STORE_DATA_STREAM);
     },
+    whenStockFound: (storename, func) => {
+        ipcRenderer.on(Events.STOCK_FOUND + storename, (_, arg) => func(arg as any));
+    },
+    open,
     titleBarActions: {
         closeApp() {
             ipcRenderer.send(Events.CLOSE_APP);
