@@ -1,11 +1,11 @@
 import React from "react"
-import { Status } from "@gnarus-g/store-bought/interface"
+import { StockStatus } from "@gnarus-g/store-bought/interface"
 import { Box, Typography } from "@material-ui/core"
 
 export interface StoreResponseViewProps {
     timeStamp: Date
     productTitle: string
-    status: Status
+    status: StockStatus
 }
 
 export function StoreResponseView({ timeStamp, productTitle, status }: StoreResponseViewProps) {

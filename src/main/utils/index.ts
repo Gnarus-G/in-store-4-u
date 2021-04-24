@@ -1,13 +1,12 @@
 import { StoreName } from "@gnarus-g/store-bought/interface";
 import StoreStream, { STORESTREAM_EVENTS } from "@gnarus-g/store-bought/store/StoreStream";
 import { MessagePortMain } from "electron/main";
-import { streamEventFor } from "../../renderer/utils";
 
-export {
-    streamEventFor
+export function streamEventFor(storeName: StoreName) {
+    return `stream-port-${storeName}`;
 }
 
-export function stockFoundEventFor(storeName: StoreName){
+export function stockFoundEventFor(storeName: StoreName) {
     return STORESTREAM_EVENTS.STOCKFOUND + `-for-${storeName}`;
 }
 

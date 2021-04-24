@@ -6,9 +6,8 @@ import open from "open";
 const { contextBridge, ipcRenderer } = require("electron");
 
 function listenFor(storeName: StoreName) {
-    const message = streamEventFor(storeName);
-    ipcRenderer.on(message, async (event) => {
-        window.postMessage(message, '*', event.ports)
+    ipcRenderer.on(streamEventFor(storeName), async (event) => {
+        window.postMessage({ for: storeName }, '*', event.ports)
     })
 }
 

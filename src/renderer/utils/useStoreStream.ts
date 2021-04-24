@@ -1,6 +1,5 @@
 import { StoreName } from "@gnarus-g/store-bought/interface";
 import { useEffect, useRef, useState } from "react";
-import { streamEventFor } from ".";
 import { AlertData, StockAlertsRequest, StockAlertsResponse } from "../../../interface";
 
 interface Handlers {
@@ -17,7 +16,7 @@ export default function useStoreStream(storeName: StoreName, { onDone, onOngoing
     useEffect(() => {
 
         const listener = (event: MessageEvent) => {
-            if (event.source === window && event.data === streamEventFor(storeName)) {
+            if (event.source === window && event.data.for === storeName) {
                 const [port] = event.ports;
                 port.onmessage = e => handleResponseFromMain(e.data);
                 portRef.current = port;
