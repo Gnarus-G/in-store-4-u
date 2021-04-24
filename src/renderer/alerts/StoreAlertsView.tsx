@@ -5,6 +5,7 @@ import useStockFoundHandler from '../handleFoundStock/useStockFoundHandler'
 import { StoreResponseView, StoreResponseViewProps } from './StoreResponseView'
 import "./animate-cart.css"
 import CartIconButton from '../handleFoundStock/CartIconButton';
+import ClipBoardButton from '../handleFoundStock/ClipBoardButton';
 
 interface StoreAlertsProps {
     name: StoreName
@@ -16,7 +17,7 @@ interface StoreAlertsProps {
 }
 
 export default function StoreAlertsView({ name, disabled, active, toggleActive: setActive, responses, setItemNumber }: StoreAlertsProps) {
-    const { found, openCartLink, reset } = useStockFoundHandler(name);
+    const { found, data, openCartLink, reset } = useStockFoundHandler(name);
 
     useEffect(() => {
         if (disabled) reset()
@@ -24,7 +25,10 @@ export default function StoreAlertsView({ name, disabled, active, toggleActive: 
 
     return (
         <Paper component="article">
-            <CartIconButton style={{ float: 'right' }} disabled={!found} onClick={openCartLink} />
+            <Box style={{ float: "right" }} display="flex" flexDirection="column">
+                <CartIconButton disabled={!found} onClick={openCartLink} />
+                {found && <ClipBoardButton content={data.cartLink} />}
+            </Box>
             <Box padding="30px">
                 <Typography style={{ textTransform: "uppercase" }} variant="h5" align="center">{name} Alerts</Typography>
                 <br />
